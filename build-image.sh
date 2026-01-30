@@ -2,7 +2,7 @@
 set -e
 
 # DigitalOcean Container Registry
-REGISTRY="${REGISTRY:-registry.digitalocean.com/scaleweb}"
+REGISTRY="${REGISTRY:-registry.scaleweb.dk}"
 
 # Git commit SHA for tagging
 GIT_SHA=$(git rev-parse --short HEAD 2>/dev/null || echo "local")
