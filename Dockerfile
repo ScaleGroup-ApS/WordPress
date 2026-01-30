@@ -1,4 +1,4 @@
-FROM wordpress:6.8.3-php8.3-apache
+FROM wordpress:6.9.0-apache
 
 # Install PHP Redis extension and WP-CLI
 RUN apt-get update && apt-get install -y \
@@ -42,9 +42,7 @@ RUN chown -R www-data:www-data /usr/src/wordpress/wp-content
 # Enable Apache modules
 RUN a2enmod rewrite expires headers
 
-# Copy custom entrypoint
-COPY docker-entrypoint.sh /usr/local/bin/custom-entrypoint.sh
-RUN chmod +x /usr/local/bin/custom-entrypoint.sh
+# Use upstream entrypoint/CMD from the base image (no custom entrypoint copied)
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
@@ -52,5 +50,4 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
 
 EXPOSE 80
 
-# Use custom entrypoint
-ENTRYPOINT ["custom-entrypoint.sh"]
+# Use upstream entrypoint (default from the base image)
